@@ -7,7 +7,7 @@ cd ~/.config
 
 remove the initial waybar config
 ```sh
-rm -r ./waybar
+sudo rm -r ./waybar
 ```
 Clone the repository
 ```sh
