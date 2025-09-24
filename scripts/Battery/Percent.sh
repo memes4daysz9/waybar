@@ -5,9 +5,6 @@ CAP=$(cat /sys/class/power_supply/$BAT/capacity)
 STATE=$(cat /sys/class/power_supply/$BAT/status)
 watts=$(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | awk -F: '/energy-rate/ {gsub("W", "", $2); print $2}' | xargs)
 
-if [ watts -lt 0 ];then 
-    watts=0
-fi
 
 if [ -f /sys/class/power_supply/$BAT/energy_now ]; then
     NOW=$(cat /sys/class/power_supply/$BAT/energy_now)
@@ -21,18 +18,13 @@ fi
 
 if [ "$STATE" = "Charging" ] && [ "$POWER" -gt 0 ]; then
     ICON="↑"
-    SECS=$(( (FULL - NOW) * 3600 / POWER ))
 elif [ "$STATE" = "Discharging" ] && [ "$POWER" -gt 0 ]; then
     ICON="↓"
-    SECS=$(( NOW * 3600 / POWER ))
 else
     ICON=""
-    SECS=0
 fi
 
-H=$(( SECS / 3600 ))
-M=$(( (SECS % 3600) / 60 ))
-S=$(( SECS % 60 ))
+
 
 # choose color based on percentage
 if [ $CAP -ge 75 ]; then
@@ -45,12 +37,6 @@ else
     COLOR="#f38ba8"
 fi
 
-if [ $SECS -gt 0 ]; then
-    if [ $H -gt 0 ]; then
-        printf "<span color='%s'>%s %s%% (%dh %dm %ds @ %sw)</span>" "$COLOR" "$ICON" "$CAP" "$H" "$M" "$S" "$watts"
-    else
-        printf "<span color='%s'>%s %s%% (%dm %ds @ %sw)</span>" "$COLOR" "$ICON" "$CAP" "$M" "$S" "$watts"
-    fi
-else
-    printf "<span color='%s'>%s %s%%</span>" "$COLOR" "$ICON" "$CAP"
-fi
+
+printf "<span color='%s'>%s %s%%</span>" "$COLOR" "$ICON" "$CAP"
+

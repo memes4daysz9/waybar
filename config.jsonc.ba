@@ -1,22 +1,25 @@
 {
   "layer": "top",
-  "position": "left",
+  "position": "top",
+  "height": 40,
   "spacing": 2,
   "exclusive": true,
   "gtk-layer-shell": true,
   "passthrough": false,
   "fixed-center": true,
 
-  "modules-left": ["sway/workspaces", "custom/disk", "memory","memory#swap","custom/WifiSSID"],
+  "modules-left": [
+    "sway/workspaces",
+     "custom/disk",
+      "memory",
+      "custom/WifiSSID"],
   "modules-center": ["mpris","clock#simpleclock"],
   "modules-right": [
     "custom/cpu",
     "custom/cpu_temp",
     "custom/gpu_render",
     "pulseaudio",
-    "custom/batterypercent",
-    "custom/batteryest",
-    "custom/batterywatt",
+    "custom/battery",
     "tray",
     "custom/power"
   ],
@@ -53,8 +56,9 @@
 
   "clock#simpleclock": {
     "tooltip": false,
-    "format": " {:%I:%M}"
+    "format": " {:%I:%M %p}"
   },
+
 
   "clock": {
     "format": " {:L%a %d %b}",
@@ -80,10 +84,7 @@
   },
 
   "memory": {
-    "format": "Py {used:0.1f}G"
-  },
-  "memory#swap": {
-    "format": "Sw {swapUsed:0.1f}G"
+    "format": " Py {used:0.1f}Gi,Sw {swapUsed:0.1f}Gi"
   },
 
   "pulseaudio": {
@@ -136,29 +137,16 @@
   },
 
 
-  "custom/batterypercent":{
+  "custom/battery": {
     "format": "{}",
     "format-markup": true,
-    "interval": 30,
-    "exec": "~/.config/waybar/scripts/Battery/Percent.sh"
+    "interval": 10,
+    "exec": "~/.config/waybar/scripts/battery.sh"
   },
-
-  "custom/batteryest":{
-    "format": "{}",
-    "format-markup": true,
-    "interval": 60,
-    "exec": "~/.config/waybar/scripts/Battery/TimeLeft.sh"
-  },
-    "custom/batterywatt":{
-    "format": "{}",
-    "format-markup": true,
-    "interval": 30,
-    "exec": "~/.config/waybar/scripts/Battery/Wattage.sh"
-  },
-  
   "custom/WifiSSID": {
     "format": "ᯤ: {}",
     "interval": 5,
-    "exec": "iw dev wlp3s0 link | grep 'SSID:' | awk '{print $2}'"
+    "exec": "iwgetid -r"
   }
+
 }
