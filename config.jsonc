@@ -9,13 +9,12 @@
   "fixed-center": true,
 
   "modules-left": ["sway/workspaces", "custom/disk", "memory","custom/WifiSSID"],
-  "modules-center": ["mpris"],
+  "modules-center": ["clock#simpleclock","mpris"],
   "modules-right": [
     "custom/cpu",
     "custom/cpu_temp",
     "custom/gpu_render",
     "pulseaudio",
-    "clock#simpleclock",
     "custom/battery",
     "tray",
     "custom/power"
@@ -52,9 +51,10 @@
   },
 
   "clock#simpleclock": {
-    "tooltip": false,
-    "format": " {:%I:%M %p}"
+      "tooltip": false,
+      "format": "  {:%a %d %I:%M %p}"
   },
+
 
 
   "clock": {

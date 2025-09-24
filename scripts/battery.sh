@@ -5,9 +5,9 @@ CAP=$(cat /sys/class/power_supply/$BAT/capacity)
 STATE=$(cat /sys/class/power_supply/$BAT/status)
 watts=$(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | awk -F: '/energy-rate/ {gsub("W", "", $2); print $2}' | xargs)
 
-if [ watts -lt 0 ];then 
-    watts=0
-fi
+#if [ watts -lt 0 ];then 
+#    watts=0
+#fi
 
 if [ -f /sys/class/power_supply/$BAT/energy_now ]; then
     NOW=$(cat /sys/class/power_supply/$BAT/energy_now)
