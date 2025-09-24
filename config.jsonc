@@ -149,7 +149,7 @@
   "custom/WifiSSID": {
     "format": "ᯤ: {}",
     "interval": 5,
-    "exec": "iwgetid -r"
+    "exec": "iw dev wlp3s0 link | grep 'SSID:' | awk '{print $2}'"
   }
 
 }
